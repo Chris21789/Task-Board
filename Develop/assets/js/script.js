@@ -2,17 +2,26 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
-// Todo: create a function to generate a unique task id
-function generateTaskId() {
-    // the new id should be stored in localstorage
-    // how do we that?
-    // how do also increment the value 
+// Todo: create a function to generate a unique task id 
+// the new id should be stored in localstorage
+// how do we that?
+// how do also increment the value 
+function generateTaskId(nextId) {
+    if (nextId === 'null') {
+        nextId = 1;
+    } else {
+        nextId++;
+    }
+
+    localStorage.setItem('nextId', nextId);
+    return nextId;
 }
 
 // Todo: create a function to create a task card
-function createTaskCard(task) {
     // create the delete button here and create the addeventlistener here
     // reference handleDeleteTask() here
+function createTaskCard(task) {
+
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -22,7 +31,7 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(event){
+function handleAddTask(event) {
     // this is where you will retrieve user's input
     // how do you grab value from a form?
     // put all your tasks in an array
@@ -30,7 +39,7 @@ function handleAddTask(event){
 }
 
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event){
+function handleDeleteTask(event) {
     // this is the last one you'll work on
     // filter() function
     // for loop, if that value exists in the array, thats the one i should delete, and keep the rest
@@ -53,9 +62,9 @@ $(document).ready(function () {
     // add the datepicker
 
 });
-    $(function(){
-        $('#datepicker').datepicker({
-            changeMonth: true,
-            changeYear: true,
-        });
+$(function () {
+    $('#datepicker').datepicker({
+        changeMonth: true,
+        changeYear: true,
     });
+});
