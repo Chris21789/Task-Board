@@ -148,7 +148,19 @@ function handleDeleteTask(event) {
     // filter() function
     // for loop, if that value exists in the array, thats the one i should delete, and keep the rest
     // how do i remove a value from an array?
-}
+    const taskId = $(this).attr('data-task-id');
+    const tasks = readTasksFromStorage();
+
+    tasks.forEach((task) => {
+        if (task.id === taskId) {
+            tasks.splice(tasks.indexOf(task), 1);
+        }
+    });
+
+    saveTasksToStorage(tasks);
+
+    renderTaskList();
+}//done
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
