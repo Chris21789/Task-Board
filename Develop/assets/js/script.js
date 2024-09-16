@@ -118,9 +118,18 @@ function handleAddTask(event) {
   const taskDescription = taskDescriptionInputEl.val().trim();
   const taskDueDate = taskDueDateInputEl.val();
 
+  if (taskTitle === "") {
+    alert("Please enter a task title.");
+  } else if (taskDescription === "") {
+    alert("Please enter a task description.");
+  } else if (taskDueDate === "") {
+    alert("Please enter a due date.");
+    return;
+  }
+
   const newTask = {
     id: generateTaskId(),
-    name: taskTitle,
+    title: taskTitle,
     description: taskDescription,
     dueDate: taskDueDate,
     status: "to-do",
@@ -136,6 +145,8 @@ function handleAddTask(event) {
   taskTitleInputEl.val("");
   taskDescriptionInputEl.val("");
   taskDueDateInputEl.val("");
+
+  $("#formModal").modal("hide");
 } //done
 
 // Todo: create a function to handle deleting a task
@@ -147,13 +158,13 @@ function handleDeleteTask(event) {
   const taskId = $(this).attr("data-task-id");
   const tasks = readTasksFromStorage();
 
-    const updatedTasks = tasks.filter(task => task.id !== parseInt(taskId));
+  const updatedTasks = tasks.filter((task) => task.id !== parseInt(taskId));
 
-//   tasks.forEach((task) => {
-//     if (task.id === taskId) {
-//       tasks.splice(tasks.indexOf(task), 1);
-//     }
-//   });
+  //   tasks.forEach((task) => {
+  //     if (task.id === taskId) {
+  //       tasks.splice(tasks.indexOf(task), 1);
+  //     }
+  //   });
 
   saveTasksToStorage(updatedTasks);
 
