@@ -12,7 +12,7 @@ function readTasksFromStorage() {
   }
 
   return tasks;
-} //dont
+} //done
 
 function saveTasksToStorage(tasks) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -100,7 +100,7 @@ function renderTaskList() {
         : $(e.target).closest(".ui-draggable");
 
       return original.clone().css({
-        width: origin.outterWidth(),
+        width: original.outerWidth(),
       });
     },
   });
@@ -147,13 +147,15 @@ function handleDeleteTask(event) {
   const taskId = $(this).attr("data-task-id");
   const tasks = readTasksFromStorage();
 
-  tasks.forEach((task) => {
-    if (task.id === taskId) {
-      tasks.splice(tasks.indexOf(task), 1);
-    }
-  });
+    const updatedTasks = tasks.filter(task => task.id !== parseInt(taskId));
 
-  saveTasksToStorage(tasks);
+//   tasks.forEach((task) => {
+//     if (task.id === taskId) {
+//       tasks.splice(tasks.indexOf(task), 1);
+//     }
+//   });
+
+  saveTasksToStorage(updatedTasks);
 
   renderTaskList();
 } //done
@@ -166,7 +168,7 @@ function handleDrop(event, ui) {
   // afterwards, renderTaskList();
   const tasks = readTasksFromStorage();
 
-  const taskId = ui.draggable[0].dataset.taskId;
+  const taskId = parseInt(ui.draggable[0].dataset.taskId);
 
   const newStatus = event.target.id;
 
