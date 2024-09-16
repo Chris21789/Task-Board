@@ -168,7 +168,21 @@ function handleDrop(event, ui) {
     // you have an array of task object
     // in that task object, you should have a key for the status
     // afterwards, renderTaskList();
-}
+    const tasks = readTasksFromStorage();
+
+    const taskId = ui.draggable[0].dataset.taskId;
+
+    const newStatus = event.target.id;
+
+    for (let task of tasks) {
+        if (task.id === taskId) {
+            task.status = newStatus;
+        }
+    }
+
+    saveTasksToStorage(tasks);
+    renderTaskList();
+}//done
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
