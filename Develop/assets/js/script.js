@@ -11,11 +11,11 @@ function readTasksFromStorage() {
     }
 
     return tasks;
-}
+}//dont
 
 function saveTasksToStorage(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
-}
+}//done
 
 
 let nextId = JSON.parse(localStorage.getItem("nextId"));
@@ -47,9 +47,9 @@ function createTaskCard(task) {
     const cardDescription = $('<div>').addClass('card-text').text(task.description);
     const cardDueDate = $('<div>').addClass('card-text').text(task.dueDate);
     const cardDeleteBtn = $('<button>')
-    .addClass('btn btn-danger delete')
-    .text('Delete')
-    .attr('data-task-id'. task.id);
+        .addClass('btn btn-danger delete')
+        .text('Delete')
+        .attr('data-task-id'.task.id);
     cardDeleteBtn.on('click', handleDeleteTask);
 
     if (task.dueDate && task.status !== 'done') {
@@ -68,13 +68,48 @@ function createTaskCard(task) {
     taskCard.append(cardHeader, cardBody);
 
     return taskCard;
-}
+}//done
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
     // this is where they implement in the solution the drag & drop. use jqueryui.com
     // call the createTaskCard() here 
-}
+    const tasks = readTasksFromStorage();
+
+    const todoList = $('#todo-cards');
+    todoList.empty();
+
+    const inProgressList = $('#in-progress-cards');
+    inProgressList.empty();
+
+    const doneList = $('#done-cards');
+    doneList.empty();
+
+    for (let task of tasks) {
+        if (task.status === 'to-do') {
+            todoList.append(createTaskCard(task));
+        } else if (task.status === 'in-progress') {
+            inProgressList.append(createTaskCard(task));
+        } else if (task.status === 'done') {
+            doneList.append(createTaskCard(task));
+        }
+    }
+
+    $('.draggable').draggable({
+        opacity: 0.7,
+        zIndex: 100,
+
+        helper: function (e) {
+            const original = $(e.target).hasClass('ui-draggable')
+                ? $(e.target)
+                : $(e.target).closest('.ui-draggable');
+
+                return original.clone().css({
+                    width: origin.outerWidth(),
+                });
+        },
+    });
+}//done
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event) {
