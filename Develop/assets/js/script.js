@@ -1,5 +1,23 @@
+const taskTitleInputEl = $('#task-title');
+const taskDueDateInputEl = $('#task-due-date');
+const taskDescriptionInputEl = $('#task-description');
+
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+function readTasksFromStorage() {
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+
+    if (!tasks) {
+        tasks = [];
+    }
+
+    return tasks;
+}
+
+function saveTasksToStorage(tasks) {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 // Todo: create a function to generate a unique task id 
@@ -18,10 +36,12 @@ function generateTaskId(nextId) {
 }
 
 // Todo: create a function to create a task card
-    // create the delete button here and create the addeventlistener here
-    // reference handleDeleteTask() here
+// create the delete button here and create the addeventlistener here
+// reference handleDeleteTask() here
 function createTaskCard(task) {
-
+    const taskCard = $('<div>')
+        .addClass('card task-card draggable my-3')
+        .attr()
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -36,7 +56,30 @@ function handleAddTask(event) {
     // how do you grab value from a form?
     // put all your tasks in an array
     // store it to local storage
-}
+    event.preventDefault();
+
+    const taskTitle = taskTitleInputEl.val().trim();
+    const taskDescription = taskDescriptionInputEl.val().trim();
+    const taskDueDate = taskDueDateInputEl.val();
+
+    const newTask = {
+        name: taskTitle,
+        description: taskDescription,
+        dueDate: taskDueDate,
+        status: 'to-do',
+    };
+
+    const tasks = readTasksFromStorage();
+    tasks.push(newTask);
+
+    saveTasksToStorage(tasks);
+
+    renderTaskList();
+
+    taskTitleInputEl.val('');
+    taskDescriptionInputEl.val('');
+    taskDueDateInputEl.val('');
+}//done
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
@@ -58,11 +101,15 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
     // render task list first
     // add event listener on the add task form
-    // implement droppable
-    // add the datepicker
 
-});
-$(function () {
+
+    // implement droppable
+    $('lane').droppable({
+        accept: '.draggable',
+        drop: handleDrop,
+    });
+
+    // add the datepicker
     $('#datepicker').datepicker({
         changeMonth: true,
         changeYear: true,
