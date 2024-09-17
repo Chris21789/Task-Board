@@ -20,6 +20,15 @@ This application allows users to create a task board in order to help manage the
 
 Open the modal and fill out the information to add task cards to the task board. Based on the due date, task cards will be given a color. Red indicates past due, yellow indicates upcoming soon and white indicates ample time to complete. Users may also drag and drop tasks into different columns to organize their tasks better and can delete the task once completed with the delete button.
 
+## Screenshots
+
+![Mainpage with no tasks](./assets/screenshots/Mainpage%20no%20tasks.png)
+
+![Modal open and filled out](./assets/screenshots/Mainpage%20modal%20open%20filled%20out.png)
+
+![Mainpage with tasks](./assets/screenshots/Mainpage%20tasks.png)
+
+
 ## Contributing
 
 Any input for improvements would be a great contribution.
