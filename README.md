@@ -30,4 +30,4 @@ Any input for improvements would be a great contribution.
 
 ## Questions
 
-If you have any questions about the repo, open an issue or contact me directly at ccolon.seo@gmail.com. You can find more of my work at [www.github.com/chris21789](www.github.com/chris21789).
+If you have any questions about the repo, open an issue or contact me directly at ccolon.seo@gmail.com. You can find more of my work at [www.github.com/Chris21789](www.github.com/Chris21789).
